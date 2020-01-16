@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
+/*   ft_word_count.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/07 13:48:55 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/01/15 19:45:41 by aszhilki         ###   ########.fr       */
+/*   Created: 2019/10/02 16:26:18 by aszhilki          #+#    #+#             */
+/*   Updated: 2019/10/08 13:36:04 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_H
-# define FRACTOL_H
-# include "../minilibx/mlx.h"
-# include "../libft/libft.h"
-# include "../libft/get_next_line.h"
-# include <math.h>
+#include "libft.h"
 
-typedef	struct	s_coord
+int		ft_words_count(char const *s, char c)
 {
-	int			scheme;
-	void		*mlx_ptr;
-	void		*win_ptr;
-	void		*img;
-	char		*get_addr;
-	float		x_max;
-	float		y_min;
-	float		step;
-	int			i;
-}				t_coord;
+	int n;
+
+	n = 0;
+	while (*s)
+	{
+		while (*s == c)
+			s++;
+		if (*s != c && *s != '\0')
+			n++;
+		while (*s != c && *s != '\0')
+			s++;
+	}
+	return (n);
+}

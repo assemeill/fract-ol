@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
+/*   ft_strclr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/07 13:48:55 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/01/15 19:45:41 by aszhilki         ###   ########.fr       */
+/*   Created: 2019/09/26 12:41:49 by aszhilki          #+#    #+#             */
+/*   Updated: 2019/10/01 14:29:29 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_H
-# define FRACTOL_H
-# include "../minilibx/mlx.h"
-# include "../libft/libft.h"
-# include "../libft/get_next_line.h"
-# include <math.h>
+#include "libft.h"
 
-typedef	struct	s_coord
+void	ft_strclr(char *s)
 {
-	int			scheme;
-	void		*mlx_ptr;
-	void		*win_ptr;
-	void		*img;
-	char		*get_addr;
-	float		x_max;
-	float		y_min;
-	float		step;
-	int			i;
-}				t_coord;
+	if (s && *s)
+	{
+		while (*s)
+		{
+			*s = '\0';
+			s++;
+		}
+	}
+}

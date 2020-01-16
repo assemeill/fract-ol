@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/07 13:48:55 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/01/15 19:45:41 by aszhilki         ###   ########.fr       */
+/*   Created: 2019/09/18 15:26:48 by aszhilki          #+#    #+#             */
+/*   Updated: 2019/09/24 13:15:29 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_H
-# define FRACTOL_H
-# include "../minilibx/mlx.h"
-# include "../libft/libft.h"
-# include "../libft/get_next_line.h"
-# include <math.h>
+#include "libft.h"
 
-typedef	struct	s_coord
+int		ft_tolower(int arg)
 {
-	int			scheme;
-	void		*mlx_ptr;
-	void		*win_ptr;
-	void		*img;
-	char		*get_addr;
-	float		x_max;
-	float		y_min;
-	float		step;
-	int			i;
-}				t_coord;
+	if (arg != '\0')
+	{
+		if (arg >= 65 && arg <= 90)
+			arg = arg + 32;
+	}
+	return (arg);
+}

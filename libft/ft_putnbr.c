@@ -1,31 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/07 13:48:55 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/01/15 19:45:41 by aszhilki         ###   ########.fr       */
+/*   Created: 2019/10/01 19:52:51 by aszhilki          #+#    #+#             */
+/*   Updated: 2019/10/08 19:50:54 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_H
-# define FRACTOL_H
-# include "../minilibx/mlx.h"
-# include "../libft/libft.h"
-# include "../libft/get_next_line.h"
-# include <math.h>
+#include "libft.h"
 
-typedef	struct	s_coord
+void	ft_putnbr(int n)
 {
-	int			scheme;
-	void		*mlx_ptr;
-	void		*win_ptr;
-	void		*img;
-	char		*get_addr;
-	float		x_max;
-	float		y_min;
-	float		step;
-	int			i;
-}				t_coord;
+	if (n == -2147483648)
+	{
+		ft_putchar('-');
+		ft_putchar('2');
+		ft_putnbr(147483648);
+	}
+	else if (ft_if_negative(n))
+	{
+		ft_putchar('-');
+		ft_putnbr((n * (-1)));
+	}
+	else if (n >= 10)
+	{
+		ft_putnbr(n / 10);
+		ft_putchar(n % 10 + '0');
+	}
+	else
+		ft_putchar((n + '0'));
+}

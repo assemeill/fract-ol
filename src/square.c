@@ -1,4 +1,4 @@
-#include "./minilibx/mlx.h"
+#include "../minilibx/mlx.h"
 
 int		main(void)
 {
@@ -13,8 +13,8 @@ int		main(void)
 	int		coord[2500] = { 0 };
 
 	mlx_ptr = mlx_init();
-	win_ptr = mlx_new_window(mlx_ptr, 500, 500, "Square");
-	img = mlx_new_image(mlx_ptr, 500, 500);
+	win_ptr = mlx_new_window(mlx_ptr, 1000, 800, "Square");
+	img = mlx_new_image(mlx_ptr, 1000, 800);
 	get_addr = mlx_get_data_addr(img, &bpp, &sl, &endian);
 	while (i < 701400)
 	{

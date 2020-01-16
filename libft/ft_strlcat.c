@@ -1,31 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/07 13:48:55 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/01/15 19:45:41 by aszhilki         ###   ########.fr       */
+/*   Created: 2019/09/20 17:39:16 by aszhilki          #+#    #+#             */
+/*   Updated: 2019/09/30 10:44:45 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_H
-# define FRACTOL_H
-# include "../minilibx/mlx.h"
-# include "../libft/libft.h"
-# include "../libft/get_next_line.h"
-# include <math.h>
+#include "libft.h"
 
-typedef	struct	s_coord
+size_t	ft_strlcat(char *dest, const char *src, size_t n)
 {
-	int			scheme;
-	void		*mlx_ptr;
-	void		*win_ptr;
-	void		*img;
-	char		*get_addr;
-	float		x_max;
-	float		y_min;
-	float		step;
-	int			i;
-}				t_coord;
+	size_t	l;
+	size_t	i;
+	size_t	res;
+
+	l = 0;
+	i = 0;
+	res = 0;
+	while (dest[l])
+		l++;
+	while (src[res])
+		res++;
+	if (n <= l)
+		res += n;
+	else
+		res += l;
+	while (l + 1 < n && src[i])
+		dest[l++] = src[i++];
+	dest[l] = '\0';
+	return (res);
+}
