@@ -6,7 +6,7 @@
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:31:42 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/01/16 19:14:03 by aszhilki         ###   ########.fr       */
+/*   Updated: 2020/01/18 19:52:24 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	check_set(char **argv, t_coord *t)
 
 void	set_default(t_coord *t)
 {
-	t->step = 0.01;
-	t->y_min = -2.5;
+	t->step = 0.011;
+	t->y_min = -1;
 	t->x_max = 1;
 }
 
@@ -64,7 +64,7 @@ void	create_scene(t_coord *t)
 
 void	set_color(int n, t_coord *t)
 {
-	if (n == 7)	
+	if (n > 200)	
 	{
 		t->get_addr[t->i * 4] = (char)255;
 		t->get_addr[t->i * 4 + 1] = (char)255;
@@ -73,7 +73,7 @@ void	set_color(int n, t_coord *t)
 	else
 	{
 		t->get_addr[t->i * 4] = (char)0;
-		t->get_addr[t->i * 4 + 1] = (char)0;
+		t->get_addr[t->i * 4 + 1] = (char)255;
 		t->get_addr[t->i * 4 + 2] = (char)0;
 	}
 }
@@ -81,33 +81,34 @@ void	set_color(int n, t_coord *t)
 void	calculate(t_coord *t)
 {
 	int		n;	
-	float	x;
-	float	y;
-	float	z;
-	float	val;
+	double	x;
+	double	y;
+	double	z;
+	double	val;
 	
-	x = 0;
-	y = 0;
+	x = -2;
+	y = 1;
 	z = 0;
 	n = 0;
 	t->i = 0;
-	val = 1;
+	val = 0;
 	while (y >= t->y_min)
 	{
 		while (x <= t->x_max)
 		{
-			while (val > z && n++ <= 7)
+			while (ft_abs(z) < 2 && n++ <= 200)
 			{
-				val = pow(z, 2) + x + y;
 				z = val;
+				val = pow(z, 2) + x + y;
 			}
-			t->i++;
+			z = 0;
 			set_color(n, t);
+			t->i++;
 			x = x + t->step;
-			val = 1;
+			val = 0;
 			n = 0;
 		}
-		x = 0;
-		y = y + t->step;
+		x = -2;
+		y = y - t->step;
 	}
 }

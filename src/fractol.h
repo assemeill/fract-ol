@@ -6,7 +6,7 @@
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:48:55 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/01/16 16:42:03 by aszhilki         ###   ########.fr       */
+/*   Updated: 2020/01/18 14:54:54 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ typedef	struct	s_coord
 	void		*win_ptr;
 	void		*img;
 	char		*get_addr;
-	float		x_max;
-	float		y_min;
-	float		step;
+	double		x_max;
+	double		y_min;
+	double		step;
 	int			i;
 	int			*crd;
 }				t_coord;
