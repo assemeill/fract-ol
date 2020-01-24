@@ -6,7 +6,7 @@
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:31:42 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/01/18 19:52:24 by aszhilki         ###   ########.fr       */
+/*   Updated: 2020/01/23 17:49:56 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	check_set(char **argv, t_coord *t)
 
 void	set_default(t_coord *t)
 {
-	t->step = 0.011;
+	t->step = 0.01;
 	t->y_min = -1;
 	t->x_max = 1;
 }
@@ -55,8 +55,8 @@ void	create_scene(t_coord *t)
 //	int		i = 300601;
 
 	t->mlx_ptr = mlx_init();
-	t->win_ptr = mlx_new_window(t->mlx_ptr, 500, 500, "fract'ol");
-	t->img = mlx_new_image(t->mlx_ptr, 500, 500);
+	t->win_ptr = mlx_new_window(t->mlx_ptr, 300, 200, "fract'ol");
+	t->img = mlx_new_image(t->mlx_ptr, 300, 200);
 	t->get_addr = mlx_get_data_addr(t->img, &bpp, &sl, &endian);
 //	mlx_put_image_to_window(mlx_ptr, win_ptr, img, 0, 0);
 //	mlx_loop(mlx_ptr);
@@ -80,35 +80,46 @@ void	set_color(int n, t_coord *t)
 
 void	calculate(t_coord *t)
 {
+	int		width;
+	int		height;	
 	int		n;	
+	double	col;
+	double	row;
+	double	c_re;
+	double	c_im;
 	double	x;
+	double	x_new;
 	double	y;
-	double	z;
-	double	val;
-	
-	x = -2;
-	y = 1;
-	z = 0;
-	n = 0;
+
+	width = 300;
+	height = 200;
+	row = 0;
+	col = 0;
 	t->i = 0;
-	val = 0;
-	while (y >= t->y_min)
+	x = 0;
+	x_new = 0;
+	y = 0;
+	n = 0;
+	while (row >= t->y_min && row < height)
 	{
-		while (x <= t->x_max)
+		while (col <= t->x_max && col < width)
 		{
-			while (ft_abs(z) < 2 && n++ <= 200)
+		c_re = (col - width/2.0)*4.0/width;
+		c_im = (row - height/2.0)*4.0/width;
+		while (x*x+y*y <= 300 && n++ <= 200)
 			{
-				z = val;
-				val = pow(z, 2) + x + y;
+				x_new = x*x - y*y + c_re;
+				y = 2*x*y + c_im;
+				x = x_new;
 			}
-			z = 0;
 			set_color(n, t);
 			t->i++;
-			x = x + t->step;
-			val = 0;
+			col++;
+			x = 0;
+			y = 0;
 			n = 0;
 		}
-		x = -2;
-		y = y - t->step;
+		col = 0;
+		row++;
 	}
 }
