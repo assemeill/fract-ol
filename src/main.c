@@ -6,7 +6,7 @@
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:31:42 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/01/23 17:49:56 by aszhilki         ###   ########.fr       */
+/*   Updated: 2020/01/24 16:12:28 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	check_set(char **argv, t_coord *t)
 		create_scene(t);
 		set_default(t);
 		if (ft_strcmp(*argv, "julia"))
-			calculate(t);
+			mandelbrot(t);
 		else if (ft_strcmp(*argv, "mandelbrot"))
-			calculate(t);
+			mandelbrot(t);
 	mlx_put_image_to_window(t->mlx_ptr, t->win_ptr, t->img, 0, 0);
 	mlx_loop(t->mlx_ptr);
 //	}
@@ -55,8 +55,8 @@ void	create_scene(t_coord *t)
 //	int		i = 300601;
 
 	t->mlx_ptr = mlx_init();
-	t->win_ptr = mlx_new_window(t->mlx_ptr, 300, 200, "fract'ol");
-	t->img = mlx_new_image(t->mlx_ptr, 300, 200);
+	t->win_ptr = mlx_new_window(t->mlx_ptr, 800, 500, "fract'ol");
+	t->img = mlx_new_image(t->mlx_ptr, 800, 500);
 	t->get_addr = mlx_get_data_addr(t->img, &bpp, &sl, &endian);
 //	mlx_put_image_to_window(mlx_ptr, win_ptr, img, 0, 0);
 //	mlx_loop(mlx_ptr);
@@ -78,7 +78,7 @@ void	set_color(int n, t_coord *t)
 	}
 }
 
-void	calculate(t_coord *t)
+void	mandelbrot(t_coord *t)
 {
 	int		width;
 	int		height;	
@@ -91,8 +91,8 @@ void	calculate(t_coord *t)
 	double	x_new;
 	double	y;
 
-	width = 300;
-	height = 200;
+	width = 800;
+	height = 500;
 	row = 0;
 	col = 0;
 	t->i = 0;
@@ -100,13 +100,13 @@ void	calculate(t_coord *t)
 	x_new = 0;
 	y = 0;
 	n = 0;
-	while (row >= t->y_min && row < height)
+	while (row < height)
 	{
-		while (col <= t->x_max && col < width)
+		while (col < width)
 		{
 		c_re = (col - width/2.0)*4.0/width;
 		c_im = (row - height/2.0)*4.0/width;
-		while (x*x+y*y <= 300 && n++ <= 200)
+		while (x*x+y*y <= 4 && n++ <= 200)
 			{
 				x_new = x*x - y*y + c_re;
 				y = 2*x*y + c_im;

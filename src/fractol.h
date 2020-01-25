@@ -6,7 +6,7 @@
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:48:55 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/01/18 14:54:54 by aszhilki         ###   ########.fr       */
+/*   Updated: 2020/01/24 15:04:43 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ void			check_set(char **argv, t_coord *t);
 void			set_default(t_coord *t);
 void			create_scene(t_coord *t);
 void			set_color(int n, t_coord *t);
-void			calculate(t_coord *t);
+void			mandelbrot(t_coord *t);
 
 #endif
