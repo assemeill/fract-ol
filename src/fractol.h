@@ -6,7 +6,7 @@
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:48:55 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/01/24 15:04:43 by aszhilki         ###   ########.fr       */
+/*   Updated: 2020/01/25 20:18:52 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ typedef	struct	s_coord
 	char		*get_addr;
 	double		x_max;
 	double		y_min;
-	double		step;
+	int			height;
+	int			width;
 	int			i;
 	int			*crd;
 }				t_coord;
@@ -36,5 +37,6 @@ void			set_default(t_coord *t);
 void			create_scene(t_coord *t);
 void			set_color(int n, t_coord *t);
 void			mandelbrot(t_coord *t);
+void			julia(t_coord *t);
 
 #endif
