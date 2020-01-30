@@ -6,7 +6,7 @@
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:48:55 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/01/28 19:40:46 by aszhilki         ###   ########.fr       */
+/*   Updated: 2020/01/29 14:47:37 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,16 @@ typedef	struct	s_coord
 	double		width;
 	int			i;
 	int			*crd;
+	double		zoom;
 }				t_coord;
 
 void			check_set(char **argv, t_coord *t);
 void			set_default(t_coord *t);
 void			create_scene(t_coord *t);
 void			set_color(int n, t_coord *t);
+int				key_press(int keycode, t_coord *t);
+void			manage_keys(t_coord *t);
+void			key_zoom(int keycode, t_coord *t);
 void			mandelbrot(t_coord *t);
 void			julia(t_coord *t);
 void			tricorn(t_coord *t);

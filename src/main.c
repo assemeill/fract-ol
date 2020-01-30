@@ -6,7 +6,7 @@
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:31:42 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/01/28 20:05:41 by aszhilki         ###   ########.fr       */
+/*   Updated: 2020/01/29 20:38:20 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	check_set(char **argv, t_coord *t)
 		else if (ft_strcheck(argv[1], "burningship"))
 			burningship(t);
 	mlx_put_image_to_window(t->mlx_ptr, t->win_ptr, t->img, 0, 0);
+	manage_keys(t);
 	mlx_loop(t->mlx_ptr);
 //	}
 }
@@ -51,6 +52,7 @@ void	set_default(t_coord *t)
 	t->width = 800;
 	t->height = 500;
 	t->i = 0;
+	t->zoom = 1;
 }
 
 void	create_scene(t_coord *t)
@@ -84,168 +86,30 @@ void	set_color(int n, t_coord *t)
 	}
 }
 
-void	mandelbrot(t_coord *t)
+int		key_press(int keycode, t_coord *t)
 {
-	int		n;	
-	double	col;
-	double	row;
-	double	c_re;
-	double	c_im;
-	double	x;
-	double	x_new;
-	double	y;
-
-	row = 0;
-	col = 0;
-	x = 0;
-	x_new = 0;
-	y = 0;
-	n = 0;
-	while (row < t->height)
-	{
-		while (col < t->width)
-		{
-			c_re = (col - t->width/2.0)*4.0/t->width;
-			c_im = (row - t->height/2.0)*4.0/t->width;
-			while (x*x + y*y < 4 && n++ <= 1000)
-			{
-				x_new = x*x - y*y + c_re;
-				y = 2*x*y + c_im;
-				x = x_new;
-			}
-			set_color(n, t);
-			t->i++;
-			col++;
-			x = 0;
-			y = 0;
-			n = 0;
-		}
-		col = 0;
-		row++;
-	}
+	if (keycode == 69)// || keycode == 78 || keycode == 24 || keycode == 27)
+		key_zoom(keycode, t);
+	if (keycode == 53)
+		exit(0);
+//		ft_close(t->win_ptr, t);
+//	if (keycode == 49 || keycode == 48)
+//		change_pr(keycode, t);
+//	if (keycode >= 123 && keycode <= 126)
+//		key_move(keycode, t);
+	return (0);
 }
 
-void	julia(t_coord *t)
+void	key_zoom(int keycode, t_coord *t)
 {
-	int		n;	
-	double	col;
-	double	row;
-	double	c_re;
-	double	c_im;
-	double	x;
-	double	x_new;
-	double	y;
-
-	row = 0;
-	col = 0;
-	x_new = 0;
-	n = 0;
-	x = (col - t->width/2.0)*4.0/t->width;
-	y = (row - t->height/2.0)*4.0/t->width;
-	while (row < t->height)
-	{
-		while (col < t->width)
-		{
-			while (x*x + y*y < 16 && n++ < 1000)
-			{
-				x_new = x*x - y*y;
-				y = 2*x*y + 0.156;
-				x = x_new - 0.8;
-			}
-			x = (col - t->width/2.0)*4.0/t->width;
-			y = (row - t->height/2.0)*4.0/t->width;
-			set_color(n, t);
-			t->i++;
-			col++;
-			n = 0;
-		}
-		col = 0;
-		row++;
-	}
+	keycode = 0;
+	t->zoom *= 0.9;
+	julia(t);
+	mlx_put_image_to_window(t->mlx_ptr, t->win_ptr, t->img, 0, 0);
 }
 
-void	tricorn(t_coord *t)
+void	manage_keys(t_coord *t)
 {
-	int		n;	
-	double	col;
-	double	row;
-	double	c_re;
-	double	c_im;
-	double	x;
-	double	x_new;
-	double	y;
-
-	row = 0;
-	col = 0;
-	x_new = 0;
-	n = 0;
-	x = (col - t->width/2.0)*4.0/t->width;
-	y = (row - t->height/2.0)*4.0/t->width;
-	c_re = x;
-	c_im = y;
-	while (row < t->height)
-	{
-		while (col < t->width)
-		{
-			while (x*x + y*y < 4 && n++ < 200)
-			{
-				x_new = x*x - y*y + c_re;
-				y = -2*x*y + c_im;
-				x = x_new;
-			}
-			x = (col - t->width/2.0)*4.0/t->width;
-			y = (row - t->height/2.0)*4.0/t->width;
-			c_re = x;
-			c_im = y;
-			set_color(n, t);
-			t->i++;
-			col++;
-			n = 0;
-		}
-		col = 0;
-		row++;
-	}
-}
-
-void	burningship(t_coord *t)
-{
-	int		n;	
-	double	col;
-	double	row;
-	double	c_re;
-	double	c_im;
-	double	x;
-	double	x_new;
-	double	y;
-
-	row = 0;
-	col = 0;
-	x_new = 0;
-	n = 0;
-	x = (col - t->width/2.0)*4.0/t->width;
-	y = (row - t->height/2.0)*4.0/t->width;
-	c_re = x;
-	c_im = y;
-	while (row < t->height)
-	{
-		while (col < t->width)
-		{
-			while (x*x + y*y < 4 && n++ < 200)
-			{
-				x_new = x*x - y*y + c_re;
-				y = ft_abs(2*x*y + c_im);
-				x = ft_abs(x_new);
-			}
-			x = (col - t->width/2.0)*4.0/t->width;
-			y = (row - t->height/2.0)*4.0/t->width;
-			c_re = x;
-			c_im = y;
-			set_color(n, t);
-			t->i++;
-			col++;
-			n = 0;
-		}
-		col = 0;
-		row++;
-	}
+	mlx_hook(t->win_ptr, 2, 0, key_press, t);
+//	mlx_hook(t->win_ptr, 17, 0, ft_close, t);
 }
