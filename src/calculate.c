@@ -6,7 +6,7 @@
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 12:18:05 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/01/29 20:30:27 by aszhilki         ###   ########.fr       */
+/*   Updated: 2020/01/30 13:55:02 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	mandelbrot(t_coord *t)
 	double	x_new;
 	double	y;
 
+	t->i = 0;
 	row = 0;
 	col = 0;
 	x = 0;
@@ -62,6 +63,7 @@ void	julia(t_coord *t)
 	double	x_new;
 	double	y;
 
+	t->i = 0;
 	row = 0;
 	col = 0;
 	x_new = 0;

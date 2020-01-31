@@ -6,7 +6,7 @@
 #    By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/29 12:42:36 by aszhilki          #+#    #+#              #
-#    Updated: 2020/01/29 12:43:31 by aszhilki         ###   ########.fr        #
+#    Updated: 2020/01/30 16:03:42 by aszhilki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = fractol
 
 FLAGS = -Wall -Werror -Wextra
 
-SRC_NAME = main.c fractals.c 
+SRC_NAME = main.c calculate.c scene.c controls.c color.c
 SRC_PATH = ./src/
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 

@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/07 13:31:42 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/01/30 16:04:44 by aszhilki         ###   ########.fr       */
+/*   Created: 2020/01/30 16:01:57 by aszhilki          #+#    #+#             */
+/*   Updated: 2020/01/30 17:02:49 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int		main(int argc, char **argv)
+void	set_color(int n, t_coord *t)
 {
-	t_coord *t;
-
-	if (!(t = (t_coord *)malloc(sizeof(t_coord))))
-		return (0);
-	if (argc != 2 && argc != 3)
-		ft_putstr("Invalid filename\n");
+	if (n > 200)	
+	{
+		t->get_addr[t->i * 4] = (char)255;
+		t->get_addr[t->i * 4 + 1] = (char)255;
+		t->get_addr[t->i * 4 + 2] = (char)255;
+	}
 	else
-		check_set(argv, t);
+	{
+		t->get_addr[t->i * 4] = (char)0;
+		t->get_addr[t->i * 4 + 1] = (char)255;
+		t->get_addr[t->i * 4 + 2] = (char)0;
+	}
 }

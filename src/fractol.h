@@ -6,7 +6,7 @@
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:48:55 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/01/29 14:47:37 by aszhilki         ###   ########.fr       */
+/*   Updated: 2020/01/30 11:00:14 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,6 @@ void			mandelbrot(t_coord *t);
 void			julia(t_coord *t);
 void			tricorn(t_coord *t);
 void			burningship(t_coord *t);
+void			put_image(t_coord *t);
 
 #endif
