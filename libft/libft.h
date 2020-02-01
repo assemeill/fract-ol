@@ -6,7 +6,7 @@
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 14:39:28 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/01/28 17:48:52 by aszhilki         ###   ########.fr       */
+/*   Updated: 2020/01/31 15:06:31 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef	struct		s_list
 	struct s_list	*next;
 }					t_list;
 
-int					ft_abs(int number);
+float				ft_abs(float number);
 void				*ft_memset(void *str, int ch, size_t n);
 void				ft_bzero(void *s, size_t n);
 void				*ft_memcpy(void *dst, const void *src, size_t n);

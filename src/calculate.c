@@ -6,174 +6,144 @@
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 12:18:05 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/01/30 13:55:02 by aszhilki         ###   ########.fr       */
+/*   Updated: 2020/01/31 19:55:24 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	mandelbrot(t_coord *t)
+void	mandelbrot(t_coord *c, t_scene *s)
 {
-	int		n;	
-	double	col;
-	double	row;
-	double	c_re;
-	double	c_im;
-	double	x;
-	double	x_new;
-	double	y;
+	int		n;
+	double	x_new;	
 
-	t->i = 0;
-	row = 0;
-	col = 0;
-	x = 0;
+	c->i = 0;
 	x_new = 0;
-	y = 0;
 	n = 0;
-	while (row < t->height)
+	while (c->row < s->height)
 	{
-		while (col < t->width)
+		while (c->col < s->width)
 		{
-			c_re = (col - t->width/2.0)*4.0/t->width;
-			c_im = (row - t->height/2.0)*4.0/t->width;
-			while (x*x + y*y < 4 && n++ <= 1000)
+			c->c_re = (c->col - s->width/2.0)*(4.0*s->zoom)/s->width;
+			c->c_im = (c->row - s->height/2.0)*(4.0*s->zoom)/s->width;
+			while (c->x * c->x + c->y * c->y < 4 && n++ < 1000)
 			{
-				x_new = x*x - y*y + c_re;
-				y = 2*x*y + c_im;
-				x = x_new;
+				x_new = c->x * c->x - c->y * c->y + c->c_re;
+				c->y = 2 * c->x * c->y + c->c_im;
+				c->x = x_new;
 			}
-			set_color(n, t);
-			t->i++;
-			col++;
-			x = 0;
-			y = 0;
+			get_color(n, s, c);
+			c->i++;
+			c->col++;
+			c->x = 0;
+			c->y = 0;
 			n = 0;
 		}
-		col = 0;
-		row++;
+		c->col = 0;
+		c->row++;
 	}
 }
 
-void	julia(t_coord *t)
+void	julia(t_coord *c, t_scene *s)
 {
 	int		n;	
-	double	col;
-	double	row;
-	double	x;
 	double	x_new;
-	double	y;
 
-	t->i = 0;
-	row = 0;
-	col = 0;
+	c->i = 0;
 	x_new = 0;
 	n = 0;
-	x = (col - t->width/2.0)*(4.0*t->zoom)/t->width;
-	y = (row - t->height/2.0)*(4.0*t->zoom)/t->width;
-	while (row < t->height)
+	c->x = (c->col - s->width/2.0)*(4.0*s->zoom)/s->width;
+	c->y = (c->row - s->height/2.0)*(4.0*s->zoom)/s->width;
+	while (c->row < s->height)
 	{
-		while (col < t->width)
+		while (c->col < s->width)
 		{
-			while (x*x + y*y < 16 && n++ < 1000)
+			while (c->x * c->x + c->y * c->y < 16 && n++ < 1000)
 			{
-				x_new = x*x - y*y;
-				y = 2*x*y + 0.156;
-				x = x_new - 0.8;
+				x_new = c->x * c->x - c->y * c->y;
+				c->y = 2 * c->x * c->y + 0.156;
+				c->x = x_new - 0.8;
 			}
-			x = (col - t->width/2.0)*(4.0*t->zoom)/t->width;
-			y = (row - t->height/2.0)*(4.0*t->zoom)/t->width;
-			set_color(n, t);
-			t->i++;
-			col++;
+			c->x = (c->col - s->width/2.0)*(4.0*s->zoom)/s->width;
+			c->y = (c->row - s->height/2.0)*(4.0*s->zoom)/s->width;
+			get_color(n, s, c);
+			c->i++;
+			c->col++;
 			n = 0;
 		}
-		col = 0;
-		row++;
+		c->col = 0;
+		c->row++;
 	}
 }
 
-void	tricorn(t_coord *t)
+void	tricorn(t_coord *c, t_scene *s)
 {
 	int		n;	
-	double	col;
-	double	row;
-	double	c_re;
-	double	c_im;
-	double	x;
 	double	x_new;
-	double	y;
 
-	row = 0;
-	col = 0;
 	x_new = 0;
 	n = 0;
-	x = (col - t->width/2.0)*4.0/t->width;
-	y = (row - t->height/2.0)*4.0/t->width;
-	c_re = x;
-	c_im = y;
-	while (row < t->height)
+	c->i = 0;
+	c->x = (c->col - s->width/2.0)*(4.0*s->zoom)/s->width;
+	c->y = (c->row - s->height/2.0)*(4.0*s->zoom)/s->width;
+	c->c_re = c->x;
+	c->c_im = c->y;
+	while (c->row < s->height)
 	{
-		while (col < t->width)
+		while (c->col < s->width)
 		{
-			while (x*x + y*y < 4 && n++ < 200)
+			while (c->x * c->x + c->y * c->y < 4 && n++ < 1000)
 			{
-				x_new = x*x - y*y + c_re;
-				y = -2*x*y + c_im;
-				x = x_new;
+				x_new = c->x * c->x - c->y * c->y + c->c_re;
+				c->y = -2 * c->x * c->y + c->c_im;
+				c->x = x_new;
 			}
-			x = (col - t->width/2.0)*4.0/t->width;
-			y = (row - t->height/2.0)*4.0/t->width;
-			c_re = x;
-			c_im = y;
-			set_color(n, t);
-			t->i++;
-			col++;
+			c->x = (c->col - s->width/2.0)*(4.0*s->zoom)/s->width;
+			c->y = (c->row - s->height/2.0)*(4.0*s->zoom)/s->width;
+			c->c_re = c->x;
+			c->c_im = c->y;
+			get_color(n, s, c);
+			c->i++;
+			c->col++;
 			n = 0;
 		}
-		col = 0;
-		row++;
+		c->col = 0;
+		c->row++;
 	}
 }
 
-void	burningship(t_coord *t)
+void	burningship(t_coord *c, t_scene *s)
 {
 	int		n;	
-	double	col;
-	double	row;
-	double	c_re;
-	double	c_im;
-	double	x;
 	double	x_new;
-	double	y;
 
-	row = 0;
-	col = 0;
 	x_new = 0;
 	n = 0;
-	x = (col - t->width/2.0)*4.0/t->width;
-	y = (row - t->height/2.0)*4.0/t->width;
-	c_re = x;
-	c_im = y;
-	while (row < t->height)
+	c->i = 0;
+	c->x = (c->col - s->width/2.0)*(4.0*s->zoom)/s->width;
+	c->y = (c->row - s->height/2.0)*(4.0*s->zoom)/s->width;
+	c->c_re = c->x;
+	c->c_im = c->y;
+	while (c->row < s->height)
 	{
-		while (col < t->width)
+		while (c->col < s->width)
 		{
-			while (x*x + y*y < 4 && n++ < 200)
+			while (c->x * c->x + c->y * c->y < 4 && n++ < 1000)
 			{
-				x_new = x*x - y*y + c_re;
-				y = ft_abs(2*x*y + c_im);
-				x = ft_abs(x_new);
+				x_new = c->x * c->x - c->y * c->y + c->c_re;
+				c->y = ft_abs(2 * c->x * c->y + c->c_im);
+				c->x = ft_abs(x_new);
 			}
-			x = (col - t->width/2.0)*4.0/t->width;
-			y = (row - t->height/2.0)*4.0/t->width;
-			c_re = x;
-			c_im = y;
-			set_color(n, t);
-			t->i++;
-			col++;
+			c->x = (c->col - s->width/2.0)*(4.0*s->zoom)/s->width;
+			c->y = (c->row - s->height/2.0)*(4.0*s->zoom)/s->width;
+			c->c_re = c->x;
+			c->c_im = c->y;
+			get_color(n, s, c);
+			c->i++;
+			c->col++;
 			n = 0;
 		}
-		col = 0;
-		row++;
+		c->col = 0;
+		c->row++;
 	}
 }
