@@ -6,144 +6,181 @@
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 12:18:05 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/01/31 19:55:24 by aszhilki         ###   ########.fr       */
+/*   Updated: 2020/02/05 17:23:23 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	mandelbrot(t_coord *c, t_scene *s)
+void	mandelbrot(t_scene *s)
+{
+	int		n;
+	double	x_new;
+	double	x_tmp;
+	double	y_tmp;
+
+	s->i = 0;
+	x_new = 0;
+	n = 0;
+	x_tmp = s->x_min;
+	y_tmp = s->y_min;
+	while (y_tmp < s->y_max)
+	{
+		while (x_tmp < s->x_max)
+		{
+			s->c_re = (x_tmp - WIDTH/2.0)*(4.0*s->zoom)/WIDTH;
+			s->c_im = (y_tmp - HEIGHT/2.0)*(4.0*s->zoom)/WIDTH;
+			while (s->x * s->x + s->y * s->y < 4 && n++ < 1000)
+			{
+				x_new = s->x * s->x - s->y * s->y + s->c_re;
+				s->y = 2 * s->x * s->y + s->c_im;
+				s->x = x_new;
+			}
+			get_color(n, s);
+			s->i++;
+			x_tmp++;
+			s->x = 0;
+			s->y = 0;
+			n = 0;
+		}
+		x_tmp = s->x_min;
+		y_tmp++;
+	}
+}
+
+/*
+void	mandelbrot(t_scene *s)
 {
 	int		n;
 	double	x_new;	
 
-	c->i = 0;
+	s->i = 0;
 	x_new = 0;
 	n = 0;
-	while (c->row < s->height)
+	while (s->row < HEIGHT)
 	{
-		while (c->col < s->width)
+		while (s->col < WIDTH)
 		{
-			c->c_re = (c->col - s->width/2.0)*(4.0*s->zoom)/s->width;
-			c->c_im = (c->row - s->height/2.0)*(4.0*s->zoom)/s->width;
-			while (c->x * c->x + c->y * c->y < 4 && n++ < 1000)
+			s->c_re = (s->col - WIDTH/2.0)*(4.0*s->zoom)/WIDTH;
+			s->c_im = (s->row - HEIGHT/2.0)*(4.0*s->zoom)/WIDTH;
+			while (s->x * s->x + s->y * s->y < 4 && n++ < 1000)
 			{
-				x_new = c->x * c->x - c->y * c->y + c->c_re;
-				c->y = 2 * c->x * c->y + c->c_im;
-				c->x = x_new;
+				x_new = s->x * s->x - s->y * s->y + s->c_re;
+				s->y = 2 * s->x * s->y + s->c_im;
+				s->x = x_new;
 			}
-			get_color(n, s, c);
-			c->i++;
-			c->col++;
-			c->x = 0;
-			c->y = 0;
+			get_color(n, s);
+			s->i++;
+			s->col++;
+			s->x = 0;
+			s->y = 0;
 			n = 0;
 		}
-		c->col = 0;
-		c->row++;
+		s->col = 0;
+		s->row++;
 	}
 }
-
-void	julia(t_coord *c, t_scene *s)
+*/
+void	julia(t_scene *s)
 {
 	int		n;	
 	double	x_new;
 
-	c->i = 0;
+	s->i = 0;
 	x_new = 0;
 	n = 0;
-	c->x = (c->col - s->width/2.0)*(4.0*s->zoom)/s->width;
-	c->y = (c->row - s->height/2.0)*(4.0*s->zoom)/s->width;
-	while (c->row < s->height)
+	s->x = (s->col - WIDTH/2.0)*(4.0*s->zoom)/WIDTH;
+	s->y = (s->row - HEIGHT/2.0)*(4.0*s->zoom)/WIDTH;
+	while (s->row < HEIGHT)
 	{
-		while (c->col < s->width)
+		while (s->col < WIDTH)
 		{
-			while (c->x * c->x + c->y * c->y < 16 && n++ < 1000)
+			while (s->x * s->x + s->y * s->y < 16 && n++ < 1000)
 			{
-				x_new = c->x * c->x - c->y * c->y;
-				c->y = 2 * c->x * c->y + 0.156;
-				c->x = x_new - 0.8;
+				x_new = s->x * s->x - s->y * s->y;
+				s->y = 2 * s->x * s->y + 0.156;
+				s->x = x_new - 0.8;
 			}
-			c->x = (c->col - s->width/2.0)*(4.0*s->zoom)/s->width;
-			c->y = (c->row - s->height/2.0)*(4.0*s->zoom)/s->width;
-			get_color(n, s, c);
-			c->i++;
-			c->col++;
+			s->x = (s->col - WIDTH/2.0)*(4.0*s->zoom)/WIDTH;
+			s->y = (s->row - HEIGHT/2.0)*(4.0*s->zoom)/WIDTH;
+			get_color(n, s);
+			s->i++;
+			s->col++;
 			n = 0;
 		}
-		c->col = 0;
-		c->row++;
+		s->col = 0;
+		s->row++;
 	}
 }
 
-void	tricorn(t_coord *c, t_scene *s)
-{
-	int		n;	
-	double	x_new;
-
-	x_new = 0;
-	n = 0;
-	c->i = 0;
-	c->x = (c->col - s->width/2.0)*(4.0*s->zoom)/s->width;
-	c->y = (c->row - s->height/2.0)*(4.0*s->zoom)/s->width;
-	c->c_re = c->x;
-	c->c_im = c->y;
-	while (c->row < s->height)
-	{
-		while (c->col < s->width)
-		{
-			while (c->x * c->x + c->y * c->y < 4 && n++ < 1000)
-			{
-				x_new = c->x * c->x - c->y * c->y + c->c_re;
-				c->y = -2 * c->x * c->y + c->c_im;
-				c->x = x_new;
-			}
-			c->x = (c->col - s->width/2.0)*(4.0*s->zoom)/s->width;
-			c->y = (c->row - s->height/2.0)*(4.0*s->zoom)/s->width;
-			c->c_re = c->x;
-			c->c_im = c->y;
-			get_color(n, s, c);
-			c->i++;
-			c->col++;
-			n = 0;
-		}
-		c->col = 0;
-		c->row++;
-	}
-}
-
-void	burningship(t_coord *c, t_scene *s)
+void	tricorn(t_scene *s)
 {
 	int		n;	
 	double	x_new;
 
 	x_new = 0;
 	n = 0;
-	c->i = 0;
-	c->x = (c->col - s->width/2.0)*(4.0*s->zoom)/s->width;
-	c->y = (c->row - s->height/2.0)*(4.0*s->zoom)/s->width;
-	c->c_re = c->x;
-	c->c_im = c->y;
-	while (c->row < s->height)
+	s->i = 0;
+	s->x = (s->col - WIDTH/2.0)*(4.0*s->zoom)/WIDTH;
+	s->y = (s->row - HEIGHT/2.0)*(4.0*s->zoom)/WIDTH;
+	s->c_re = s->x;
+	s->c_im = s->y;
+	while (s->row < HEIGHT)
 	{
-		while (c->col < s->width)
+		while (s->col < WIDTH)
 		{
-			while (c->x * c->x + c->y * c->y < 4 && n++ < 1000)
+			while (s->x * s->x + s->y * s->y < 4 && n++ < 1000)
 			{
-				x_new = c->x * c->x - c->y * c->y + c->c_re;
-				c->y = ft_abs(2 * c->x * c->y + c->c_im);
-				c->x = ft_abs(x_new);
+				x_new = s->x * s->x - s->y * s->y + s->c_re;
+				s->y = -2 * s->x * s->y + s->c_im;
+				s->x = x_new;
 			}
-			c->x = (c->col - s->width/2.0)*(4.0*s->zoom)/s->width;
-			c->y = (c->row - s->height/2.0)*(4.0*s->zoom)/s->width;
-			c->c_re = c->x;
-			c->c_im = c->y;
-			get_color(n, s, c);
-			c->i++;
-			c->col++;
+			s->x = (s->col - WIDTH/2.0)*(4.0*s->zoom)/WIDTH;
+			s->y = (s->row - HEIGHT/2.0)*(4.0*s->zoom)/WIDTH;
+			s->c_re = s->x;
+			s->c_im = s->y;
+			get_color(n, s);
+			s->i++;
+			s->col++;
 			n = 0;
 		}
-		c->col = 0;
-		c->row++;
+		s->col = 0;
+		s->row++;
+	}
+}
+
+void	burningship(t_scene *s)
+{
+	int		n;	
+	double	x_new;
+
+	x_new = 0;
+	n = 0;
+	s->i = 0;
+	s->x = (s->col - WIDTH/2.0)*(4.0*s->zoom)/WIDTH;
+	s->y = (s->row - HEIGHT/2.0)*(4.0*s->zoom)/WIDTH;
+	s->c_re = s->x;
+	s->c_im = s->y;
+	while (s->row < HEIGHT)
+	{
+		while (s->col < WIDTH)
+		{
+			while (s->x * s->x + s->y * s->y < 4 && n++ < 1000)
+			{
+				x_new = s->x * s->x - s->y * s->y + s->c_re;
+				s->y = ft_abs(2 * s->x * s->y + s->c_im);
+				s->x = ft_abs(x_new);
+			}
+			s->x = (s->col - WIDTH/2.0)*(4.0*s->zoom)/WIDTH;
+			s->y = (s->row - HEIGHT/2.0)*(4.0*s->zoom)/WIDTH;
+			s->c_re = s->x;
+			s->c_im = s->y;
+			get_color(n, s);
+			s->i++;
+			s->col++;
+			n = 0;
+		}
+		s->col = 0;
+		s->row++;
 	}
 }

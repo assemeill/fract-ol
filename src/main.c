@@ -6,7 +6,7 @@
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:31:42 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/01/31 20:59:25 by aszhilki         ###   ########.fr       */
+/*   Updated: 2020/02/04 14:44:51 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int		main(int argc, char **argv)
 {
-	t_coord *c;
 	t_scene *s;
 	int		n;
 
@@ -23,12 +22,10 @@ int		main(int argc, char **argv)
 		ft_putstr("Invalid filename\n");
 	if (!(s = (t_scene *)malloc(sizeof(t_scene))))
 		return (0);
-	if (!(c = (t_coord *)malloc(sizeof(t_coord))))
-		return (0);
-	while (argv[n])
-	{
-		set_fractal(argv[n]);	
-		check_set(c, s);
+//	while (argv[n])
+//	{
+		s->scheme = set_fractal(argv[n]);	
+		check_set(s);
 		n++;
-	}
+//	}
 }

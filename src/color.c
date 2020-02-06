@@ -6,7 +6,7 @@
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 16:01:57 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/01/31 19:56:35 by aszhilki         ###   ########.fr       */
+/*   Updated: 2020/02/04 13:55:02 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 //}
 //
 
-void	get_color(int n, t_scene *s, t_coord *c)
+void	get_color(int n, t_scene *s)
 {
 	float	ti;	
 	ti = n / (float)1000;
@@ -43,12 +43,12 @@ void	get_color(int n, t_scene *s, t_coord *c)
 //		t->get_addr[t->i * 4 + 2] = (char)0;
 //	}
 //	else
-	set_color(c, s, ti);
+	set_color(s, ti);
 }
 
-void	set_color(t_coord *c, t_scene *s, float ti)
+void	set_color(t_scene *s, float ti)
 {
-	s->get_addr[c->i * 4] = (char)(6 * pow((1 - ti), 3) * ti * 255);
-	s->get_addr[c->i * 4 + 1] = (char)(8.5 * (1 - ti) * pow(ti, 3) * 255);
-	s->get_addr[c->i * 4 + 2] = (char)(14.5 * pow((1 - ti), 2) * pow(ti, 2) * 255);;
+	s->get_addr[s->i * 4] = (char)(6 * pow((1 - ti), 3) * ti * 255);
+	s->get_addr[s->i * 4 + 1] = (char)(8.5 * (1 - ti) * pow(ti, 3) * 255);
+	s->get_addr[s->i * 4 + 2] = (char)(14.5 * pow((1 - ti), 2) * pow(ti, 2) * 255);;
 }
