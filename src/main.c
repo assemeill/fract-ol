@@ -22,13 +22,14 @@ int		main(int argc, char **argv)
 	i = 0;
 	if (argc != 2 && argc != 3)
 		ft_putstr("Invalid input\n");
-	while (argv[n])
-	{
+//	while (argv[n])
+//	{
 		if (!(s[i] = (t_scene *)malloc(sizeof(t_scene))))
 			return (0);
+		s[i]->help = 1;
 		s[i]->scheme = set_fractal(argv[n]);
 		check_set(s[i]);
 		n++;
 		i++;
-	}
+//	}
 }

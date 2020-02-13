@@ -26,10 +26,44 @@ void	check_set(t_scene *s)
 	s->move_x = WIDTH / 2;
 	s->move_y = HEIGHT / 2;
 	s->intr =WIDTH / 4.0;
+	set_help(s);
 //	s->max_iter = 100;
-	set_threads(s);
+//	set_threads(s);
 	manage_keys(s);
 	mlx_loop(s->mlx_ptr);
+}
+
+void	set_help(t_scene *s)
+{
+	int	max;
+	int	i;
+	int	color;
+
+	i = -1;
+	color = 0;	
+	max = HEIGHT * WIDTH * 4;	
+	while (++i <= max)
+	{
+		s->get_addr[i] = (char)color;
+		if (i == max && color != 160)
+		{
+			mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->img, 0, 0);
+			color += 1;
+			i = -1;
+		}
+	}
+	mlx_string_put(s->mlx_ptr, s->win_ptr, (WIDTH / 2 - 35), 140, 0xFFFFFF, "FRACT'OL");
+	mlx_string_put(s->mlx_ptr, s->win_ptr, (WIDTH / 2 - 35), 155, 0xFFFFFF, "aszhilki");
+	mlx_string_put(s->mlx_ptr, s->win_ptr, (WIDTH / 2 - 35), 180, 0xFFFFFF, "controls");
+	mlx_string_put(s->mlx_ptr, s->win_ptr, (WIDTH / 2 - 35), 220, 0xFFFFFF, "+/- zoom");
+	mlx_string_put(s->mlx_ptr, s->win_ptr, (WIDTH / 2 - 35), 240, 0xFFFFFF, "ESC exit");
+	mlx_string_put(s->mlx_ptr, s->win_ptr, (WIDTH / 2 - 45), 260, 0xFFFFFF, "ARROWS move");
+	mlx_string_put(s->mlx_ptr, s->win_ptr, (WIDTH / 2 - 110), 280,
+	0xFFFFFF, "H open fractal/open help");
+	mlx_string_put(s->mlx_ptr, s->win_ptr, (WIDTH / 2 - 73), 300,
+	0xFFFFFF, "SPACE change color");
+	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->img, 0, 0);
+
 }
 
 void	call(t_scene *s)

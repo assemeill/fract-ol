@@ -46,6 +46,7 @@ typedef	struct	s_scene
 	int			move_x;
 	int			move_y;
 	float		intr;
+	int		help;
 }				t_scene;
 
 void			check_set(t_scene *s);
@@ -67,5 +68,7 @@ void			burningship(t_scene *s);
 void			call(t_scene *s);
 int				set_fractal(char *argv);
 void			set_threads(t_scene *s);
+void			help(t_scene *s);
+void			set_help(t_scene *s);
 
 #endif

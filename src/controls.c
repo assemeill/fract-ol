@@ -18,9 +18,23 @@ int		key_press(int keycode, t_scene *s)
 		key_zoom(keycode, s);
 	if (keycode == 123 || keycode == 124 || keycode == 125 || keycode == 126)
 		key_move(keycode, s);
+	if (keycode == 4)
+		help(s);
 	if (keycode == 53)
 		exit(0);
 	return (0);
+}
+
+void	help(t_scene *s)
+{
+	if (s->help == 1)
+		s->help = 0;
+	else
+		s->help = 1;
+	if (s->help == 1)
+		set_help(s);
+	else
+		set_threads(s);	
 }
 
 void	key_move(int keycode, t_scene *s)
