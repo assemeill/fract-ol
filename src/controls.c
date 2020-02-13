@@ -6,29 +6,45 @@
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 16:00:02 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/02/11 21:01:35 by aszhilki         ###   ########.fr       */
+/*   Updated: 2020/02/12 17:41:02 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
 int		key_press(int keycode, t_scene *s)
-{ 
-	if (keycode == 69)// || keycode == 78 || keycode == 24 || keycode == 27)
+{
+	if (keycode == 69 || keycode == 78 || keycode == 24 || keycode == 27)
 		key_zoom(keycode, s);
+	if (keycode == 123 || keycode == 124 || keycode == 125 || keycode == 126)
+		key_move(keycode, s);
 	if (keycode == 53)
 		exit(0);
 	return (0);
 }
 
+void	key_move(int keycode, t_scene *s)
+{
+	if (keycode == 126)
+		s->y_c += (1.1 - s->move_y) / ((WIDTH / 4) * s->zoom);
+	if (keycode == 125)
+		s->y_c -= (1.1 - s->move_y) / ((WIDTH / 4) * s->zoom);
+	if (keycode == 123)
+		s->x_c += (1.1 - s->move_x) / ((WIDTH / 4) * s->zoom);
+	if (keycode == 124)
+		s->x_c -= (1.1 - s->move_x) / ((WIDTH / 4) * s->zoom);
+
+	set_threads(s);
+}
+
 void	key_zoom(int keycode, t_scene *s)
 {
-	if (keycode == 69)
-	{
+	if (keycode == 78 || keycode == 27)
 		s->zoom *= 0.8;
-		set_default(s);
-		set_threads(s);
-	}
+	else if (keycode == 69 || keycode == 24)
+		s->zoom /= 0.9;
+//	s->intr = WIDTH / 4.0 * s->zoom;
+	set_threads(s);
 }
 
 int		mouse(int keycode, int x, int y, t_scene *s)
@@ -40,13 +56,13 @@ int		mouse(int keycode, int x, int y, t_scene *s)
 		s->move_x = x;
 		s->move_y = y;
 		if (keycode == 5)
-			s->zoom *= 0.8;
+			s->zoom *= 1/1.1;
 		else if (keycode == 4)
-			s->zoom /= 0.9;
-		s->intr = WIDTH/4.0*s->zoom;
+			s->zoom *= 1.1;
+		s->intr = WIDTH / 4.0 * s->zoom;
 	}
-		set_default(s);
-		set_threads(s);
+	set_default(s);
+	set_threads(s);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 16:01:22 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/02/11 21:07:18 by aszhilki         ###   ########.fr       */
+/*   Updated: 2020/02/12 17:41:25 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ void	check_set(t_scene *s)
 	s->x_max = WIDTH;
 	s->x_c = 0;
 	s->y_c = 0;
-	s->move_x = WIDTH/2;
-	s->move_y = HEIGHT/2;
-	s->intr = WIDTH/4.0;
+	s->move_x = WIDTH / 2;
+	s->move_y = HEIGHT / 2;
+	s->intr =WIDTH / 4.0;
+//	s->max_iter = 100;
 	set_threads(s);
 	manage_keys(s);
 	mlx_loop(s->mlx_ptr);
@@ -38,8 +39,8 @@ void	call(t_scene *s)
 	{
 		while (s->col < WIDTH)
 		{
-			s->x = (s->col - s->move_x)/s->intr + s->x_c;
-			s->y = (s->row - s->move_y)/s->intr + s->y_c;
+			s->x = (s->col - s->move_x) / s->intr + s->x_c;
+			s->y = (s->row - s->move_y) / s->intr + s->y_c;
 			if (s->scheme == 1)
 				julia(s);
 			else if (s->scheme == 2)
@@ -79,14 +80,14 @@ void	set_threads(t_scene *s)
 int		set_fractal(char *argv)
 {
 	if (ft_strcheck(argv, "julia"))
-		return(1);
+		return (1);
 	else if (ft_strcheck(argv, "mandelbrot"))
-		return(2);
+		return (2);
 	else if (ft_strcheck(argv, "tricorn"))
-		return(3);
+		return (3);
 	else if (ft_strcheck(argv, "burningship"))
-		return(4);
-	return(0);
+		return (4);
+	return (0);
 // Add smth what if 0?
 }
 
@@ -106,7 +107,7 @@ void	create_scene(t_scene *s)
 	int		sl;
 
 	s->mlx_ptr = mlx_init();
-	s->win_ptr = mlx_new_window(s->mlx_ptr, 800, 500, "fract'ol");
-	s->img = mlx_new_image(s->mlx_ptr, 800, 500);
+	s->win_ptr = mlx_new_window(s->mlx_ptr, WIDTH, HEIGHT, "fract'ol");
+	s->img = mlx_new_image(s->mlx_ptr, WIDTH, HEIGHT);
 	s->get_addr = mlx_get_data_addr(s->img, &bpp, &sl, &endian);
 }

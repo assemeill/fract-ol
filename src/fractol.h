@@ -6,7 +6,7 @@
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:48:55 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/02/11 21:00:40 by aszhilki         ###   ########.fr       */
+/*   Updated: 2020/02/12 17:41:09 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <math.h>
 # include <pthread.h>
 # define HEIGHT 500
-# define WIDTH 800
+# define WIDTH 500
 # define THREADS 16
 typedef	struct	s_scene
 {
@@ -59,6 +59,7 @@ int				mouse_move(int x, int y, t_scene *s);
 float			scale(float start, float end);
 void			manage_keys(t_scene *s);
 void			key_zoom(int keycode, t_scene *s);
+void			key_move(int keycode, t_scene *s);
 void			mandelbrot(t_scene *s);
 void			julia(t_scene *s);
 void			tricorn(t_scene *s);
