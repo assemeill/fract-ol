@@ -6,7 +6,7 @@
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:48:55 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/02/14 13:52:15 by aszhilki         ###   ########.fr       */
+/*   Updated: 2020/02/14 14:05:04 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,6 @@ void			key_move(int keycode, t_scene *s);
 void			key_zoom(int keycode, t_scene *s);
 int				mouse(int keycode, int x, int y, t_scene *s);
 int				mouse_move(int x, int y, t_scene *s);
+int				close_fr(t_scene *s);
 
 #endif

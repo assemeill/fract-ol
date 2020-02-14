@@ -6,7 +6,7 @@
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 16:00:02 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/02/14 12:02:33 by aszhilki         ###   ########.fr       */
+/*   Updated: 2020/02/14 14:05:22 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,14 @@ int		key_press(int keycode, t_scene *s)
 	if (keycode == 3)
 		freeze_julia(s);
 	if (keycode == 53)
-		exit(0);
+		close_fr(s);
 	return (0);
+}
+
+int		close_fr(t_scene *s)
+{
+	free(s);
+	exit(0);
 }
 
 void	manage_keys(t_scene *s)

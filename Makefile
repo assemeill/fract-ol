@@ -6,7 +6,7 @@
 #    By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/29 12:42:36 by aszhilki          #+#    #+#              #
-#    Updated: 2020/02/14 13:50:24 by aszhilki         ###   ########.fr        #
+#    Updated: 2020/02/14 14:21:21 by aszhilki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,12 +30,13 @@ all: $(NAME)
 
 $(LFT_LIB):
 	@echo "(-᷅_-᷄๑) in process\n"
-	@make -C $(LFT_PATH)
+	@echo "."
+	@make -sC $(LFT_PATH)
 	@echo "."
 
 $(MLX_LIB):
 	@echo "."
-	@make -C $(MLX_PATH)
+	@make -sC $(MLX_PATH)
 	@echo "."
 
 $(NAME): $(LFT_LIB) $(MLX_LIB)
@@ -53,7 +54,7 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
-	@make -C $(LFT_PATH) fclean
+	@make -sC $(LFT_PATH) fclean
 	@echo "all clean! ɿ(｡･ɜ･)ɾ"
 
 re: fclean all
