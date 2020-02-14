@@ -6,7 +6,7 @@
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:48:55 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/02/12 17:41:09 by aszhilki         ###   ########.fr       */
+/*   Updated: 2020/02/13 18:15:54 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@
 # include "../libft/get_next_line.h"
 # include <math.h>
 # include <pthread.h>
+# include <stdlib.h>
 # define HEIGHT 500
 # define WIDTH 500
-# define THREADS 16
+# define THREADS 20
+
 typedef	struct	s_scene
 {
 	char		scheme;
@@ -46,7 +48,12 @@ typedef	struct	s_scene
 	int			move_x;
 	int			move_y;
 	float		intr;
-	int		help;
+	int			help;
+	int			freeze;
+	int			r;
+	int			g;
+	int			b;
+	int			color;
 }				t_scene;
 
 void			check_set(t_scene *s);
@@ -55,12 +62,8 @@ void			create_scene(t_scene *s);
 void			get_color(int n, t_scene *s);
 void			set_color(t_scene *s, float ti);
 int				key_press(int keycode, t_scene *s);
-int				mouse(int keycode, int x, int y, t_scene *s);
-int				mouse_move(int x, int y, t_scene *s);
 float			scale(float start, float end);
 void			manage_keys(t_scene *s);
-void			key_zoom(int keycode, t_scene *s);
-void			key_move(int keycode, t_scene *s);
 void			mandelbrot(t_scene *s);
 void			julia(t_scene *s);
 void			tricorn(t_scene *s);
@@ -68,7 +71,7 @@ void			burningship(t_scene *s);
 void			call(t_scene *s);
 int				set_fractal(char *argv);
 void			set_threads(t_scene *s);
-void			help(t_scene *s);
 void			set_help(t_scene *s);
+void			set_text(t_scene *s);
 
 #endif

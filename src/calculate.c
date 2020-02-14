@@ -6,7 +6,7 @@
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 12:18:05 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/02/12 16:11:07 by aszhilki         ###   ########.fr       */
+/*   Updated: 2020/02/13 17:38:35 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,12 @@ void	burningship(t_scene *s)
 	while (s->x * s->x + s->y * s->y < 4 && n++ < 200)
 	{
 		x_new = s->x * s->x - s->y * s->y + s->c_re;
-		s->y = ft_abs(2 * s->x * s->y + s->c_im);
+		s->y = 2 * s->x * s->y + s->c_im;
+		if (s->y < 0)
+			s->y *= -1;
 		s->x = ft_abs(x_new);
+		if (s->x < 0)
+			s->x *= -1;
 	}
 	get_color(n, s);
 }

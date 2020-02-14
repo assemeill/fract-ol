@@ -6,16 +6,14 @@
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 16:01:22 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/02/12 17:41:25 by aszhilki         ###   ########.fr       */
+/*   Updated: 2020/02/13 18:16:09 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	check_set(t_scene *s)
+static void	beg_values(t_scene *s)
 {
-	create_scene(s);
-	set_default(s);
 	s->zoom = 1;
 	s->y_min = 0;
 	s->y_max = HEIGHT;
@@ -25,73 +23,25 @@ void	check_set(t_scene *s)
 	s->y_c = 0;
 	s->move_x = WIDTH / 2;
 	s->move_y = HEIGHT / 2;
-	s->intr =WIDTH / 4.0;
+	s->intr = WIDTH / 4.0;
+	s->freeze = 0;
+	s->r = 0;
+	s->g = 0;
+	s->b = 0;
+	s->color = 0;
+}
+
+void		check_set(t_scene *s)
+{
+	create_scene(s);
+	set_default(s);
+	beg_values(s);
 	set_help(s);
-//	s->max_iter = 100;
-//	set_threads(s);
 	manage_keys(s);
 	mlx_loop(s->mlx_ptr);
 }
 
-void	set_help(t_scene *s)
-{
-	int	max;
-	int	i;
-	int	color;
-
-	i = -1;
-	color = 0;	
-	max = HEIGHT * WIDTH * 4;	
-	while (++i <= max)
-	{
-		s->get_addr[i] = (char)color;
-		if (i == max && color != 160)
-		{
-			mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->img, 0, 0);
-			color += 1;
-			i = -1;
-		}
-	}
-	mlx_string_put(s->mlx_ptr, s->win_ptr, (WIDTH / 2 - 35), 140, 0xFFFFFF, "FRACT'OL");
-	mlx_string_put(s->mlx_ptr, s->win_ptr, (WIDTH / 2 - 35), 155, 0xFFFFFF, "aszhilki");
-	mlx_string_put(s->mlx_ptr, s->win_ptr, (WIDTH / 2 - 35), 180, 0xFFFFFF, "controls");
-	mlx_string_put(s->mlx_ptr, s->win_ptr, (WIDTH / 2 - 35), 220, 0xFFFFFF, "+/- zoom");
-	mlx_string_put(s->mlx_ptr, s->win_ptr, (WIDTH / 2 - 35), 240, 0xFFFFFF, "ESC exit");
-	mlx_string_put(s->mlx_ptr, s->win_ptr, (WIDTH / 2 - 45), 260, 0xFFFFFF, "ARROWS move");
-	mlx_string_put(s->mlx_ptr, s->win_ptr, (WIDTH / 2 - 110), 280,
-	0xFFFFFF, "H open fractal/open help");
-	mlx_string_put(s->mlx_ptr, s->win_ptr, (WIDTH / 2 - 73), 300,
-	0xFFFFFF, "SPACE change color");
-	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->img, 0, 0);
-
-}
-
-void	call(t_scene *s)
-{
-	set_default(s);
-	while (s->row < s->max_y)
-	{
-		while (s->col < WIDTH)
-		{
-			s->x = (s->col - s->move_x) / s->intr + s->x_c;
-			s->y = (s->row - s->move_y) / s->intr + s->y_c;
-			if (s->scheme == 1)
-				julia(s);
-			else if (s->scheme == 2)
-				mandelbrot(s);
-			else if (s->scheme == 3)
-				tricorn(s);
-			else if (s->scheme == 4)
-				burningship(s);
-			s->i++;
-			s->col++;
-		}
-		s->col = 0;
-		s->row++;
-	}
-}
-
-void	set_threads(t_scene *s)
+void		set_threads(t_scene *s)
 {
 	t_scene			new_s[THREADS];
 	pthread_t		threads[THREADS];
@@ -111,7 +61,7 @@ void	set_threads(t_scene *s)
 	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->img, 0, 0);
 }
 
-int		set_fractal(char *argv)
+int			set_fractal(char *argv)
 {
 	if (ft_strcheck(argv, "julia"))
 		return (1);
@@ -122,19 +72,9 @@ int		set_fractal(char *argv)
 	else if (ft_strcheck(argv, "burningship"))
 		return (4);
 	return (0);
-// Add smth what if 0?
 }
 
-void	set_default(t_scene *s)
-{
-	s->i = 0;
-	s->x = 0;
-	s->y = 0;
-	s->col = 0;
-	s->row = 0;
-}
-
-void	create_scene(t_scene *s)
+void		create_scene(t_scene *s)
 {
 	int		bpp;
 	int		endian;
