@@ -6,7 +6,7 @@
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 16:01:22 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/02/13 18:16:09 by aszhilki         ###   ########.fr       */
+/*   Updated: 2020/02/14 11:57:22 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,6 @@ static void	beg_values(t_scene *s)
 	s->move_y = HEIGHT / 2;
 	s->intr = WIDTH / 4.0;
 	s->freeze = 0;
-	s->r = 0;
-	s->g = 0;
-	s->b = 0;
 	s->color = 0;
 }
 

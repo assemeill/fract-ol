@@ -6,13 +6,13 @@
 /*   By: aszhilki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 16:00:02 by aszhilki          #+#    #+#             */
-/*   Updated: 2020/02/13 18:10:04 by aszhilki         ###   ########.fr       */
+/*   Updated: 2020/02/14 12:02:33 by aszhilki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-static int	mouse(int keycode, int x, int y, t_scene *s)
+int		mouse(int keycode, int x, int y, t_scene *s)
 {
 	if (keycode == 4 || keycode == 5)
 	{
@@ -31,17 +31,24 @@ static int	mouse(int keycode, int x, int y, t_scene *s)
 	return (0);
 }
 
-static int	mouse_move(int x, int y, t_scene *s)
+int		key_press(int keycode, t_scene *s)
 {
-	if (s->help == 0 || s->freeze == 1)
-		return (0);
-	s->c_re = (((float)x - WIDTH) / (WIDTH / 2)) + 1;
-	s->c_im = (((float)y - WIDTH) / (WIDTH / 2)) + 1;
-	set_threads(s);
+	if (keycode == 69 || keycode == 78 || keycode == 24 || keycode == 27)
+		key_zoom(keycode, s);
+	if (keycode == 123 || keycode == 124 || keycode == 125 || keycode == 126)
+		key_move(keycode, s);
+	if (keycode == 49)
+		change_color(s);
+	if (keycode == 4)
+		help(s);
+	if (keycode == 3)
+		freeze_julia(s);
+	if (keycode == 53)
+		exit(0);
 	return (0);
 }
 
-void		manage_keys(t_scene *s)
+void	manage_keys(t_scene *s)
 {
 	mlx_hook(s->win_ptr, 2, 0, key_press, s);
 	mlx_hook(s->win_ptr, 4, 0, mouse, s);
